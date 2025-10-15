@@ -76,15 +76,21 @@ public class HudsonTeleop {
         private DcMotor rf = null;
         private DcMotor rb = null;
 
+        private DcMotor shooter1 = null;
+        private DcMotor shooter2 = null;
+
         @Override
         public void runOpMode() {
 
             // Initialize the hardware variables. Note that the strings used here must correspond
             // to the names assigned during the robot configuration step on the DS or RC devices.
-            lf = hardwareMap.get(DcMotor.class, "front_left_drive");
-            lb = hardwareMap.get(DcMotor.class, "back_left_drive");
-            rf = hardwareMap.get(DcMotor.class, "front_right_drive");
-            rb = hardwareMap.get(DcMotor.class, "back_right_drive");
+            lf = hardwareMap.get(DcMotor.class, "front_left");
+            lb = hardwareMap.get(DcMotor.class, "back_left");
+            rf = hardwareMap.get(DcMotor.class, "front_right");
+            rb = hardwareMap.get(DcMotor.class, "back_right");
+
+            shooter1 = hardwareMap.get(DcMotor.class, "shooter1");
+            shooter2 = hardwareMap.get(DcMotor.class, "shooter2");
 
             // ########################################################################################
             // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -101,6 +107,9 @@ public class HudsonTeleop {
             rf.setDirection(DcMotor.Direction.FORWARD);
             rb.setDirection(DcMotor.Direction.FORWARD);
 
+            shooter1.setDirection(DcMotor.Direction.REVERSE);
+            shooter2.setDirection(DcMotor.Direction.FORWARD);
+
             // Wait for the game to start (driver presses START)
             telemetry.addData("Status", "Initialized");
             telemetry.update();
@@ -116,6 +125,9 @@ public class HudsonTeleop {
                 double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
                 double lateral = gamepad1.left_stick_x;
                 double yaw = gamepad1.right_stick_x;
+
+                double shooter1p = gamepad1.left_trigger;
+                double shooter2p = gamepad1.left_trigger;
 
                 // Combine the joystick requests for each axis-motion to determine each wheel's power.
                 // Set up a variable for each drive wheel to save the power level for telemetry.
@@ -159,6 +171,15 @@ public class HudsonTeleop {
                 rf.setPower(rfp);
                 lb.setPower(lbp);
                 rb.setPower(rbp);
+
+            shooter1.setPower(shooter1p);
+            shooter2.setPower(shooter2p);
+
+            runtime.reset();
+            while (opModeIsActive() && (runtime.seconds() < 4.0)) {
+                telemetry.addData("Path", "Leg 1: %4.1f S Elapsed", runtime.seconds());
+                telemetry.update();
+            }
 
                 // Show the elapsed game time and wheel power.
                 telemetry.addData("Status", "Run Time: " + runtime.toString());
