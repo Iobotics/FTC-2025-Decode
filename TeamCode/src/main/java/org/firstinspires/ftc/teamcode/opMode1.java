@@ -1,15 +1,3 @@
-Conversation opened. 1 unread message.
-
-Skip to content
-Using Iolani School Mail with screen readers
-
-1 of 8,356
-uh idk
-Inbox
-
-Hudson Woo
-1:51 PM (4 minutes ago)
-to me
 
 package org.firstinspires.ftc.teamcode;
 
