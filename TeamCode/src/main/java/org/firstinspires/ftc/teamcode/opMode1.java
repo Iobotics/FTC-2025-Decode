@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class HudsonTeleop {
+
     /* Copyright (c) 2021 FIRST. All rights reserved.
      *
      * Redistribution and use in source and binary forms, with or without modification,
@@ -189,5 +189,4 @@ public class HudsonTeleop {
             }
         }
     }
-}
-What is this?Thanks, I'll check it out.Thanks a lot.
+
