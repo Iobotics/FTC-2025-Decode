@@ -1,0 +1,35 @@
+package org.firstinspires.ftc.teamcode;
+
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+@Autonomous(name = "Drive Forward Auto")
+public class lily_forward_auto extends LinearOpMode {
+
+    @Override
+    public void runOpMode() {
+
+        // Starting position:
+        // X = 0 (center)
+        // Y = -60 (near the back wall)
+        // Heading = 90° (facing toward center field)
+        Pose2d startPose = new Pose2d(0, -60, Math.toRadians(90));
+
+        MecanumDrive drive = new MecanumDrive(hardwareMap, startPose);
+
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        Actions.runBlocking(
+                drive.actionBuilder(startPose)
+                        .lineToY(0)          // Drive to the center of the field
+                        .build()
+        );
+    }
+}
